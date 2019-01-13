@@ -14,12 +14,14 @@
       background: purple;
       border: 1px solid red;
       height: 600px;
+      position: relative;
       width: 600px;
     }
 
     .cutie {
       animation: animateBorderColor 3s linear infinite alternate;
       height: 20px;
+      position: absolute;
       width: 20px;
       border: 1px solid red;
     }
@@ -50,5 +52,83 @@
 </head>
 <body>
   <div class="cutie"></div>
+
+  <script>
+    let culori = [
+      'red',
+      'purple',
+      'yellow',
+      'cyan',
+      'blue',
+      'green',
+      'orange',
+    ];
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const container = document.createElement('div');
+      container.id = 'container';
+      document.body.append(container);
+
+      const containerRect = container.getBoundingClientRect();
+
+      container.addEventListener('click', function (event) {
+        const cutie = document.createElement('div');
+        cutie.classList.add('cutie');
+
+        const x = event.clientX - containerRect.left;
+        const y = event.clientY - containerRect.top;
+
+        cutie.style.left = `${x}px`;
+        cutie.style.top = `${y}px`;
+
+        const randomIndex = Math.floor(culori.length * Math.random());
+        cutie.style.backgroundColor = culori[randomIndex];
+
+        cutie.addEventListener('click', function (event) {
+          event.stopPropagation();
+
+          container.style.backgroundColor = cutie.style.backgroundColor;
+          cutie.classList.add('apasat');
+
+          cutie.innerHTML = [...container.children].indexOf(cutie);
+        });
+
+        container.append(cutie);
+      });
+
+      window.addEventListener('keydown', startRemovingBoxes);
+
+      function startRemovingBoxes(event) {
+        console.log('key pressed');
+        if (event.key.toLowerCase() !== 's') { return; }
+
+        removeAllBoxes();
+        window.removeEventListener('keydown', startRemovingBoxes);
+      }
+
+      function removeAllBoxes() {
+        const interval = setInterval(function () {
+          if (!container.children.length) {
+            clearInterval(interval);
+          } else {
+            const lastChild = container.children[container.children.length - 1];
+            lastChild.remove();
+          }
+        }, 1000);
+      }
+
+      const textField = document.createElement('input');
+      textField.id = 'culori';
+      textField.type = 'text';
+      document.body.append(textField);
+
+      textField.addEventListener('keydown', function (event) {
+        if (event.key === 'Enter') {
+          culori.push(textField.value.toLowerCase());
+          textField.value = '';
+        }
+      });
+    });
+  </script>
 </body>
 </html>
