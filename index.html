@@ -103,6 +103,7 @@
         if (event.key.toLowerCase() !== 's') { return; }
 
         removeAllSelectedBoxes();
+        saveDate();
         window.removeEventListener('keydown', startRemovingSelectedBoxes);
       }
 
@@ -122,6 +123,10 @@
       const textField = document.createElement('input');
       textField.id = 'culori';
       textField.type = 'text';
+      if (localStorage.date) {
+        console.log(localStorage.date);
+        textField.value = localStorage.date;
+      }
       document.body.append(textField);
 
       textField.addEventListener('keydown', function (event) {
@@ -131,6 +136,11 @@
         }
       });
     });
+
+    function saveDate() {
+      console.log(Date.now().toDateString());
+      localStorage.setItem('date', Date.now().toDateString());
+    }
   </script>
 </body>
 </html>
