@@ -96,23 +96,25 @@
         container.append(cutie);
       });
 
-      window.addEventListener('keydown', startRemovingBoxes);
+      window.addEventListener('keydown', startRemovingSelectedBoxes);
 
-      function startRemovingBoxes(event) {
+      function startRemovingSelectedBoxes(event) {
         console.log('key pressed');
         if (event.key.toLowerCase() !== 's') { return; }
 
-        removeAllBoxes();
-        window.removeEventListener('keydown', startRemovingBoxes);
+        removeAllSelectedBoxes();
+        window.removeEventListener('keydown', startRemovingSelectedBoxes);
       }
 
-      function removeAllBoxes() {
+      function removeAllSelectedBoxes() {
+        const selectedBoxes = container.getElementsByClassName('apasat');
+
         const interval = setInterval(function () {
-          if (!container.children.length) {
+          if (!selectedBoxes.length) {
             clearInterval(interval);
           } else {
-            const lastChild = container.children[container.children.length - 1];
-            lastChild.remove();
+            const lastSelectedBox = selectedBoxes[selectedBoxes.length - 1];
+            lastSelectedBox.remove();
           }
         }, 1000);
       }
