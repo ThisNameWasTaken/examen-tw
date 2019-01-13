@@ -5,8 +5,50 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <style>
+    /* debug styles */
+
+    /* end debug styles */
+
+    #container {
+      background: purple;
+      border: 1px solid red;
+      height: 600px;
+      width: 600px;
+    }
+
+    .cutie {
+      animation: animateBorderColor 3s linear infinite alternate;
+      height: 20px;
+      width: 20px;
+      border: 1px solid red;
+    }
+
+    @keyframes animateBorderColor {
+      0% {
+        border-color: red;
+      }
+
+      50% {
+        border-color: yellow;
+      }
+
+      100% {
+        border-color: blue;
+      }
+    }
+
+    .cutie:hover {
+      border-radius: 50%;
+      transition: 2s linear;
+    }
+
+    .apasat {
+      opacity: 0.5;
+    }
+  </style>
 </head>
 <body>
-  test
+  <div class="cutie"></div>
 </body>
 </html>
