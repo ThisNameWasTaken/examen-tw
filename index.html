@@ -99,7 +99,6 @@
       window.addEventListener('keydown', startRemovingSelectedBoxes);
 
       function startRemovingSelectedBoxes(event) {
-        console.log('key pressed');
         if (event.key.toLowerCase() !== 's') { return; }
 
         removeAllSelectedBoxes();
@@ -124,7 +123,6 @@
       textField.id = 'culori';
       textField.type = 'text';
       if (localStorage.date) {
-        console.log(localStorage.date);
         textField.value = localStorage.date;
       }
       document.body.append(textField);
@@ -138,8 +136,7 @@
     });
 
     function saveDate() {
-      console.log(Date.now().toDateString());
-      localStorage.setItem('date', Date.now().toDateString());
+      localStorage.setItem('date', Date.toDateString());
     }
   </script>
 </body>
